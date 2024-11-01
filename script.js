@@ -396,4 +396,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const mindMap = new MindMap(container);
 
     window.addEventListener('resize', () => mindMap.updateLines());
+
+    // Export functionality
+    const exportButton = document.getElementById('export-button');
+    let exportPopup = null;
+
+    exportButton.addEventListener('click', () => {
+        if (exportPopup) {
+            exportPopup.remove();
+            exportPopup = null;
+            return;
+        }
+
+        exportPopup = document.createElement('div');
+        exportPopup.className = 'export-popup';
+        exportPopup.innerHTML = `
+            <button id="export-pdf">Export as PDF</button>
+            <button id="export-image">Export as Image</button>
+        `;
+        document.body.appendChild(exportPopup);
+
+        document.getElementById('export-pdf').addEventListener('click', async () => {
+            const canvas = await html2canvas(container);
+            const imgData = canvas.toDataURL('image/png');
+            
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+            });
+            
+            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save('mindmap.pdf');
+            exportPopup.remove();
+            exportPopup = null;
+        });
+
+        document.getElementById('export-image').addEventListener('click', async () => {
+            const canvas = await html2canvas(container);
+            const link = document.createElement('a');
+            link.download = 'mindmap.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            exportPopup.remove();
+            exportPopup = null;
+        });
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (e) => {
+            if (exportPopup && !exportPopup.contains(e.target) && e.target !== exportButton) {
+                exportPopup.remove();
+                exportPopup = null;
+            }
+        });
+    });
 });
