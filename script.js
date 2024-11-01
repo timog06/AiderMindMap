@@ -418,27 +418,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('export-pdf').addEventListener('click', async () => {
             try {
+                // Calculate the bounding box of all nodes
+                const bounds = mindMap.nodes.reduce((acc, node) => {
+                    const rect = node.element.getBoundingClientRect();
+                    return {
+                        left: Math.min(acc.left, node.x),
+                        top: Math.min(acc.top, node.y),
+                        right: Math.max(acc.right, node.x + rect.width),
+                        bottom: Math.max(acc.bottom, node.y + rect.height)
+                    };
+                }, { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity });
+
+                // Add padding
+                const padding = 50;
+                bounds.left -= padding;
+                bounds.top -= padding;
+                bounds.right += padding;
+                bounds.bottom += padding;
+
                 // Create a temporary container for export
-                const tempContainer = container.cloneNode(true);
-                document.body.appendChild(tempContainer);
+                const tempContainer = document.createElement('div');
                 tempContainer.style.position = 'absolute';
                 tempContainer.style.left = '0';
                 tempContainer.style.top = '0';
-                tempContainer.style.width = container.scrollWidth + 'px';
-                tempContainer.style.height = container.scrollHeight + 'px';
-                
+                tempContainer.style.width = (bounds.right - bounds.left) + 'px';
+                tempContainer.style.height = (bounds.bottom - bounds.top) + 'px';
+                tempContainer.style.backgroundColor = '#ffffff';
+
+                // Clone the mindmap and adjust positions
+                const clonedMindmap = container.cloneNode(true);
+                clonedMindmap.style.transform = 'none';
+                clonedMindmap.style.top = (-bounds.top) + 'px';
+                clonedMindmap.style.left = (-bounds.left) + 'px';
+                tempContainer.appendChild(clonedMindmap);
+                document.body.appendChild(tempContainer);
+
                 const canvas = await html2canvas(tempContainer, {
                     scale: 2,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
-                    width: container.scrollWidth,
-                    height: container.scrollHeight,
-                    logging: true,
-                    onclone: (doc) => {
-                        const clonedContainer = doc.getElementById(container.id);
-                        clonedContainer.style.transform = 'none';
-                    }
+                    logging: true
                 });
 
                 document.body.removeChild(tempContainer);
@@ -475,27 +495,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('export-image').addEventListener('click', async () => {
             try {
+                // Calculate the bounding box of all nodes
+                const bounds = mindMap.nodes.reduce((acc, node) => {
+                    const rect = node.element.getBoundingClientRect();
+                    return {
+                        left: Math.min(acc.left, node.x),
+                        top: Math.min(acc.top, node.y),
+                        right: Math.max(acc.right, node.x + rect.width),
+                        bottom: Math.max(acc.bottom, node.y + rect.height)
+                    };
+                }, { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity });
+
+                // Add padding
+                const padding = 50;
+                bounds.left -= padding;
+                bounds.top -= padding;
+                bounds.right += padding;
+                bounds.bottom += padding;
+
                 // Create a temporary container for export
-                const tempContainer = container.cloneNode(true);
-                document.body.appendChild(tempContainer);
+                const tempContainer = document.createElement('div');
                 tempContainer.style.position = 'absolute';
                 tempContainer.style.left = '0';
                 tempContainer.style.top = '0';
-                tempContainer.style.width = container.scrollWidth + 'px';
-                tempContainer.style.height = container.scrollHeight + 'px';
-                
+                tempContainer.style.width = (bounds.right - bounds.left) + 'px';
+                tempContainer.style.height = (bounds.bottom - bounds.top) + 'px';
+                tempContainer.style.backgroundColor = '#ffffff';
+
+                // Clone the mindmap and adjust positions
+                const clonedMindmap = container.cloneNode(true);
+                clonedMindmap.style.transform = 'none';
+                clonedMindmap.style.top = (-bounds.top) + 'px';
+                clonedMindmap.style.left = (-bounds.left) + 'px';
+                tempContainer.appendChild(clonedMindmap);
+                document.body.appendChild(tempContainer);
+
                 const canvas = await html2canvas(tempContainer, {
                     scale: 2,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
-                    width: container.scrollWidth,
-                    height: container.scrollHeight,
-                    logging: true,
-                    onclone: (doc) => {
-                        const clonedContainer = doc.getElementById(container.id);
-                        clonedContainer.style.transform = 'none';
-                    }
+                    logging: true
                 });
 
                 document.body.removeChild(tempContainer);
