@@ -160,3 +160,73 @@
 
 # 2024-11-01 11:07:56.621520
 +make it when user clicks on a connector th choice to delete it 
+
+# 2024-11-01 12:43:47.065874
++/exit
+
+# 2024-11-01 12:45:31.223513
++yes
+
+# 2024-11-01 12:45:46.727821
++/add index.html script.js styles.css
+
+# 2024-11-01 12:47:51.879305
++add a button where you can export the mindmap into a pdf or a picture so i can print it
+
+# 2024-11-01 12:48:28.723366
++yes
+
+# 2024-11-01 12:48:28.747455
++/run start index.html
+
+# 2024-11-01 12:49:53.443866
++the image was successfully downloaded but when i open it it says img cant be loaded it's broken or something, when i press on the pdf, it doesnt download at all, also add a loading animation
+
+# 2024-11-01 12:50:27.581204
++yes
+
+# 2024-11-01 12:50:27.599665
++/run start index.html
+
+# 2024-11-01 12:51:14.901895
++/undo
+
+# 2024-11-01 12:52:21.924984
++after exporting the image, when i open it, it says file is broken or something, use a different library maybe. Also the pdf export isnt working
+
+# 2024-11-01 12:54:10.483086
++Uncaught TypeError: URL.createObjectURL: Argument 1 is not valid for any of the 1-argument overloads.
++    <anonymous> file:///C:/Users/timog/OneDrive/Desktop/GitHub/AiderMindMap/script.js:466
++script.js:466:37
++    <anonym> file:///C:/Users/timog/OneDrive/Desktop/GitHub/AiderMindMap/script.js:466
+
+# 2024-11-01 12:56:39.922801
++when i try to export as pdf it fails, and when exporting an image the image is 0 bytes and failes to open again
+
+# 2024-11-01 12:57:23.637897
++#1 153ms Document cloned, element located at 768,127.19999694824219 with size 0x0 using computed rendering html2canvas.min.js:20:191994
++#1 154ms Starting DOM parsing html2canvas.min.js:20:191994
++#1 188ms Starting renderer for element at 768,127.19999694824219 with size 0x0 html2canvas.min.js:20:191994
++#1 188ms Canvas renderer initialized (0x0) with scale 2 html2canvas.min.js:20:191994
++#1 209ms Finished rendering html2canvas.min.js:20:191994
++#2 0ms Starting document clone with size 1536x254 scrolled to 0,0 html2canvas.min.js:20:191994
++Das Components-Objekt sollte nicht mehr verwendet werden. Es wird bald entfernt. index.html
++#2 185ms Document cloned, element located at 768,127.19999694824219 with size 0x0 using computed rendering html2canvas.min.js:20:191994
++#2 185ms Starting DOM parsing html2canvas.min.js:20:191994
++#2 204ms Starting renderer for element at 768,127.19999694824219 with size 0x0 html2canvas.min.js:20:191994
++#2 204ms Canvas renderer initialized (0x0) with scale 2 html2canvas.min.js:20:191994
++#2 223ms Finished rendering html2canvas.min.js:20:191994
++PDF export error: Error: Invalid coordinates passed to jsPDF.addImage
++    addImage addimage.js:850
++    <anonymous> script.js:446
++    async* script.js:419
++    EventListener.handleEvent* script.js:404
++    EventListener.handleEvent* script.js:394
++script.js:452:25
++    <anonym> file:///C:/Users/timog/OneDrive/Desktop/GitHub/AiderMindMap/script.js:452
++    <anonym> file:///C:/Users/timog/OneDrive/Desktop/GitHub/AiderMindMap/script.js:419
++    (Async: EventListener.handleEvent)
++    <anonym> file:///C:/Users/timog/OneDrive/Desktop/GitHub/AiderMindMap/script.js:404
++    (Async: EventListener.handleEvent)
++    <anonym> file:///C:/Users/timog/OneDrive/Desktop/GitHub/AiderMindMap/script.js:394
++
