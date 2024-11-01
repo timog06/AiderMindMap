@@ -462,16 +462,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     backgroundColor: '#ffffff'
                 });
 
-                canvas.toBlob((blob) => {
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.download = 'mindmap.png';
-                    link.href = url;
-                    link.click();
-                    URL.revokeObjectURL(url);
-                    exportPopup.remove();
-                    exportPopup = null;
-                }, 'image/png', 1.0);
+                const dataUrl = canvas.toDataURL('image/png', 1.0);
+                const link = document.createElement('a');
+                link.download = 'mindmap.png';
+                link.href = dataUrl;
+                link.click();
+                exportPopup.remove();
+                exportPopup = null;
             } catch (error) {
                 alert('Failed to export image. Please try again.');
                 console.error('Image export error:', error);
