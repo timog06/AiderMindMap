@@ -418,32 +418,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('export-pdf').addEventListener('click', async () => {
             try {
-                const canvas = await html2canvas(container, {
+                // Create a temporary container for export
+                const tempContainer = container.cloneNode(true);
+                document.body.appendChild(tempContainer);
+                tempContainer.style.position = 'absolute';
+                tempContainer.style.left = '0';
+                tempContainer.style.top = '0';
+                tempContainer.style.width = container.scrollWidth + 'px';
+                tempContainer.style.height = container.scrollHeight + 'px';
+                
+                const canvas = await html2canvas(tempContainer, {
                     scale: 2,
                     useCORS: true,
                     allowTaint: true,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    width: container.scrollWidth,
+                    height: container.scrollHeight,
+                    logging: true,
+                    onclone: (doc) => {
+                        const clonedContainer = doc.getElementById(container.id);
+                        clonedContainer.style.transform = 'none';
+                    }
                 });
 
+                document.body.removeChild(tempContainer);
+
+                const { jsPDF } = window.jspdf;
                 const imgData = canvas.toDataURL('image/png', 1.0);
                 
-                const { jsPDF } = window.jspdf;
+                // Use A4 size and calculate scaling
                 const pdf = new jsPDF({
-                    orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
+                    orientation: 'landscape',
                     unit: 'mm',
                     format: 'a4'
                 });
 
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                const imgWidth = canvas.width;
-                const imgHeight = canvas.height;
-                const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
                 
-                const centerX = (pdfWidth - imgWidth * ratio) / 2;
-                const centerY = (pdfHeight - imgHeight * ratio) / 2;
+                const widthRatio = pageWidth / canvas.width;
+                const heightRatio = pageHeight / canvas.height;
+                const ratio = Math.min(widthRatio, heightRatio) * 0.9; // 90% of the page
+                
+                const centerX = (pageWidth - (canvas.width * ratio)) / 2;
+                const centerY = (pageHeight - (canvas.height * ratio)) / 2;
 
-                pdf.addImage(imgData, 'PNG', centerX, centerY, imgWidth * ratio, imgHeight * ratio);
+                pdf.addImage(imgData, 'PNG', centerX, centerY, canvas.width * ratio, canvas.height * ratio);
                 pdf.save('mindmap.pdf');
                 exportPopup.remove();
                 exportPopup = null;
@@ -455,20 +475,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('export-image').addEventListener('click', async () => {
             try {
-                const canvas = await html2canvas(container, {
+                // Create a temporary container for export
+                const tempContainer = container.cloneNode(true);
+                document.body.appendChild(tempContainer);
+                tempContainer.style.position = 'absolute';
+                tempContainer.style.left = '0';
+                tempContainer.style.top = '0';
+                tempContainer.style.width = container.scrollWidth + 'px';
+                tempContainer.style.height = container.scrollHeight + 'px';
+                
+                const canvas = await html2canvas(tempContainer, {
                     scale: 2,
                     useCORS: true,
                     allowTaint: true,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    width: container.scrollWidth,
+                    height: container.scrollHeight,
+                    logging: true,
+                    onclone: (doc) => {
+                        const clonedContainer = doc.getElementById(container.id);
+                        clonedContainer.style.transform = 'none';
+                    }
                 });
 
-                const dataUrl = canvas.toDataURL('image/png', 1.0);
-                const link = document.createElement('a');
-                link.download = 'mindmap.png';
-                link.href = dataUrl;
-                link.click();
-                exportPopup.remove();
-                exportPopup = null;
+                document.body.removeChild(tempContainer);
+
+                // Convert to blob instead of data URL
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = 'mindmap.png';
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    exportPopup.remove();
+                    exportPopup = null;
+                }, 'image/png', 1.0);
             } catch (error) {
                 alert('Failed to export image. Please try again.');
                 console.error('Image export error:', error);
