@@ -1,0 +1,162 @@
+
+# 2024-11-01 09:26:33.739655
++please create a webiste, just a mind map, when i hover over a line (that is an oval around words), a + appears and i can create a new branch to the mind map, add other useful features too, no UI, just the mindmap and functions for it
+
+# 2024-11-01 09:27:22.137060
++yes
+
+# 2024-11-01 09:27:26.573180
++no
+
+# 2024-11-01 09:28:03.012613
++make the screen dragable to move around, the root oval should be in the center of the screen
+
+# 2024-11-01 09:29:30.685202
++no
+
+# 2024-11-01 09:30:25.847959
++make the nodes a bit bigger and when you click on a node, you can edit a text, keep the function to add new nodes when pressing the plus that appears on hover
+
+# 2024-11-01 09:31:43.618163
++no
+
+# 2024-11-01 09:32:18.378639
++make the nodes dragable too, which automatically makes the lines change to still connect the nodes, also make the lines not touch the words but the oval
+
+# 2024-11-01 09:34:02.292597
++no
+
+# 2024-11-01 09:34:29.395954
++/undo
+
+# 2024-11-01 09:34:54.378279
++the nodes arent dragable, also make sure new nodes never overlap existing ones
+
+# 2024-11-01 09:37:44.298818
++yes
+
+# 2024-11-01 09:37:44.308943
++/run start index.html
+
+# 2024-11-01 09:40:10.322150
++remove the dragable function, make the plus button appear on the line of the node and when you click on the text of the node you can edit a node, make the popup not a browser popup but design your own
+
+# 2024-11-01 09:46:43.653034
++make the nodes dragable (make it different from before)
+
+# 2024-11-01 09:48:01.410499
++the dragging is very weird, it zooms away when i move
+
+# 2024-11-01 09:49:53.910737
++amazing thank you, make a saving system, in a json, so if the user adds nodes then reloads the site it shows the existing nodes already.
+
+# 2024-11-01 09:53:20.179810
++make it when you press enter while the popup is shown, it does the same save function as when pressing save 
+
+# 2024-11-01 09:54:12.137283
++yes
+
+# 2024-11-01 09:54:12.146570
++/run start index.html
+
+# 2024-11-01 09:55:03.554951
++(dont implement this) give suggestions how to make it better
+
+# 2024-11-01 09:58:53.416108
++add numbers: 1, 2, 4(also make a little legend at the bottom left for the shortcuts, the legend should be expandable and retractable), add a button for 9, 18, KEEP EVERYTHING WITH SIMPLE HTML/CSS/JAVASCRIPT, you can use libraries but dont do any backend (no big database)
+
+# 2024-11-01 10:00:18.093416
++yes
+
+# 2024-11-01 10:00:18.099204
++/run start index.html
+
+# 2024-11-01 10:01:14.713496
++remove the auto layout function but add the undo redo buttons
+
+# 2024-11-01 10:02:04.413977
++yes
+
+# 2024-11-01 10:02:04.421133
++/run start index.html
+
+# 2024-11-01 10:03:22.327298
++remove the undo redo and the connection, add a delete button to the node popup
+
+# 2024-11-01 10:04:13.452117
++yes
+
+# 2024-11-01 10:04:13.475503
++/run start index.html
+
+# 2024-11-01 10:14:32.936392
++the short cuts dont work, because the browser uses shortcuts too, so either remove them or somehow block the browser from using them, if possible
+
+# 2024-11-01 10:14:53.191800
++yes
+
+# 2024-11-01 10:14:53.213833
++/run start index.html
+
+# 2024-11-01 10:15:57.040508
++remove everything after me asking you for possible addons, because nothing is working
+
+# 2024-11-01 10:22:26.478572
++yes
+
+# 2024-11-01 10:22:26.503755
++/run start index.html
+
+# 2024-11-01 10:24:19.723354
++you went too far back, keep the node moving and the custom popup and all that from before, so the files are the way they were when i asked you fro suggestions without implementing them
+
+# 2024-11-01 10:56:06.449143
++make the nodes a bit bigger and the lines connect to the node outlines instead of the text, make a custom popup when you press on a node to edit or delete it or when creating a new one
+
+# 2024-11-01 10:57:03.099945
++yes
+
+# 2024-11-01 10:57:03.106457
++/run start index.html
+
+# 2024-11-01 10:58:18.097430
++the popup always appears very small at the bottom right but it should appear fairly big in the middle of the screen for easy use, also when i move the node the popup appears but it shouldnt, when i drag
+
+# 2024-11-01 10:58:49.424421
++yes
+
+# 2024-11-01 10:58:49.431425
++/run start index.html
+
+# 2024-11-01 11:00:05.787802
++in the html the popup should appear below the script
+
+# 2024-11-01 11:00:21.581339
++yes
+
+# 2024-11-01 11:00:21.591936
++/run start index.html
+
+# 2024-11-01 11:01:44.037451
++make it when you press enter while editing or adding a node it does the same as save, and add a little error message below the input field for the name of the node when it's empty and user wants to save
+
+# 2024-11-01 11:02:14.421833
++yes
+
+# 2024-11-01 11:02:14.429363
++/run start index.html
+
+# 2024-11-01 11:03:42.769453
++make an additional plus button (different color) to add lines/connectors so when you press it you can create a new line between the node that was selected and then user has to click a different node to create a new line, those should also be saved
+
+# 2024-11-01 11:04:40.680914
++yes
+
+# 2024-11-01 11:04:40.692907
++/run start index.html
+
+# 2024-11-01 11:06:04.744752
++now everytime i click on a node it shows the edit popup even when connecting a new line or when i stop dragging a node, it should only appear when i directly click on the node, please fix
+
+# 2024-11-01 11:07:56.621520
++make it when user clicks on a connector th choice to delete it 
