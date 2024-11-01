@@ -417,30 +417,65 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(exportPopup);
 
         document.getElementById('export-pdf').addEventListener('click', async () => {
-            const canvas = await html2canvas(container);
-            const imgData = canvas.toDataURL('image/png');
-            
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({
-                orientation: 'landscape',
-                unit: 'px',
-                format: [canvas.width, canvas.height]
-            });
-            
-            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-            pdf.save('mindmap.pdf');
-            exportPopup.remove();
-            exportPopup = null;
+            try {
+                const canvas = await html2canvas(container, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff'
+                });
+
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+                const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                
+                const centerX = (pdfWidth - imgWidth * ratio) / 2;
+                const centerY = (pdfHeight - imgHeight * ratio) / 2;
+
+                pdf.addImage(imgData, 'PNG', centerX, centerY, imgWidth * ratio, imgHeight * ratio);
+                pdf.save('mindmap.pdf');
+                exportPopup.remove();
+                exportPopup = null;
+            } catch (error) {
+                alert('Failed to export PDF. Please try again.');
+                console.error('PDF export error:', error);
+            }
         });
 
         document.getElementById('export-image').addEventListener('click', async () => {
-            const canvas = await html2canvas(container);
-            const link = document.createElement('a');
-            link.download = 'mindmap.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            exportPopup.remove();
-            exportPopup = null;
+            try {
+                const canvas = await html2canvas(container, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff'
+                });
+
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = 'mindmap.png';
+                    link.href = url;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    exportPopup.remove();
+                    exportPopup = null;
+                }, 'image/png', 1.0);
+            } catch (error) {
+                alert('Failed to export image. Please try again.');
+                console.error('Image export error:', error);
+            }
         });
 
         // Close popup when clicking outside
